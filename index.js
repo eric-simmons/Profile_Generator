@@ -3,18 +3,32 @@ import Employee from "./lib/Employee.js"
 import Engineer from "./lib/Engineer.js"
 import Intern from "./lib/Intern.js"
 import Manager from "./lib/Manager.js"
-import Question from "./lib/Questions.js"
-import { newEmployeeQuestion } from "./lib/Questions.js"
-import { employeeNameQuestion } from "./lib/Questions.js"
-import { employeeIdQuestion } from "./lib/Questions.js"
-import { employeeEmailQuestion } from "./lib/Questions.js"
-import { managerOfficeQuestion } from "./lib/Questions.js"
-import { engineerGithubQuestion } from "./lib/Questions.js"
-import { internSchoolQuestion } from "./lib/Questions.js"
+import Question from "./lib/Question.js"
+// import questions from "./lib/questions_config.js"
+const initQuestion = [
+    {
+        type: "list",
+        name: "employeeType",
+        message: "What type of employee would you like to create?",
+        choices: ['Manager', 'Engineer', 'Intern']
+    }
+]
+const employeeClasses = {
+    "Manager": Manager,
+    "Engineer": Engineer,
+    "Intern": Intern
+}
 
-
-// const tommy = new Engineer('tommy', 420, 'email.com', 'github.com')
-// console.log(tommy.getGithub())
+function getQuestion(prompt) {
+    return [
+        {
+            type: "input",
+            name: "response",
+            message: prompt,
+            choices: null
+        }
+    ]
+}
 
 
 
@@ -22,8 +36,38 @@ import { internSchoolQuestion } from "./lib/Questions.js"
 
 const init = async () => {
     try {
-        const answers = await inquirer.prompt(newEmployeeQuestion)
-        console.log(answers)
+        const answer = await inquirer.prompt(initQuestion)
+
+        //lookup employee class reference in the employee classes object using the response
+        const employee = new employeeClasses[answer.employeeType]()
+
+        const nameAnswer = await inquirer.prompt(getQuestion(employee.namePrompt))
+        employee.setName(nameAnswer.response)
+        //   employee.name = nameAnswer.response
+
+        const idAnswer = await inquirer.prompt(getQuestion(employee.idPrompt))
+        employee.setId(idAnswer.response)
+
+        const emailAnswer = await inquirer.prompt(getQuestion(employee.emailPrompt))
+        employee.setEmail(emailAnswer.response)
+
+        const officeNumberAnswer = await inquirer.prompt(getQuestion(employee.officeNumberPrompt))
+        employee.officeNumber = officeNumberAnswer.response
+
+
+        console.log(employee)
+
+
+
+
+
+
+
+
+
+
+
+
     }
     catch (error) {
         console.log('There was an error', error)
