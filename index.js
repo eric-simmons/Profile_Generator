@@ -1,9 +1,9 @@
 import inquirer from "inquirer"
-import Employee from "./lib/Employee.js"
 import Engineer from "./lib/Engineer.js"
 import Intern from "./lib/Intern.js"
 import Manager from "./lib/Manager.js"
-import Question from "./lib/Question.js"
+import generateHTML from "./lib/generateHTML.js"
+import fs from "fs"
 // import questions from "./lib/questions_config.js"
 const initQuestion = [
     {
@@ -60,7 +60,12 @@ const init = async () => {
             employee.school = schoolAnswer.response
         }
 
-        console.log(employee)
+       const html = generateHTML(employee)
+
+       fs.writeFile('EmployeeProfiles.html', html, error => {
+        if (error) throw error
+       })
+     
     }
     catch (error) {
         console.log('There was an error', error)
