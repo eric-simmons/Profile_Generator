@@ -51,11 +51,30 @@ const init = async () => {
         const emailAnswer = await inquirer.prompt(getQuestion(employee.emailPrompt))
         employee.setEmail(emailAnswer.response)
 
-        const officeNumberAnswer = await inquirer.prompt(getQuestion(employee.officeNumberPrompt))
-        employee.officeNumber = officeNumberAnswer.response
-
+        if (employee.getRole() === "Manager") {
+            const officeNumberAnswer = await inquirer.prompt(getQuestion(employee.officeNumberPrompt))
+            employee.officeNumber = officeNumberAnswer.response
+        }
+        else if (employee.getRole() === "Engineer"){
+            const githubAnswer = await inquirer.prompt(getQuestion(employee.githubPrompt))
+            employee.github = githubAnswer.response
+        }
+        else if (employee.getRole() === "Intern"){
+            const schoolAnswer = await inquirer.prompt(getQuestion(employee.schoolPrompt))
+            employee.school = schoolAnswer.response
+        }
 
         console.log(employee)
+
+        // if(employeeClasses[answer.employeeType] = "Manager"){
+        //     console.log('manager')
+        //     const officeNumberAnswer = await inquirer.prompt(getQuestion(employee.officeNumberPrompt))
+        //     employee.officeNumber = officeNumberAnswer.response
+        // }
+        // else if (employeeClasses[answer.employeeType] = "Intern"){
+        //     console.log('Intern')
+        // }
+
 
 
 
