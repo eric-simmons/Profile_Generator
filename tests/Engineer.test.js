@@ -1,4 +1,3 @@
-import Employee from "../lib/Employee.js"
 import Engineer from "../lib/Engineer.js"
 
 //arrange
