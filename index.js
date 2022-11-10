@@ -30,8 +30,6 @@ function getQuestion(prompt) {
     ]
 }
 
-
-
 const init = async () => {
     try {
         const answer = await inquirer.prompt(initQuestion)
