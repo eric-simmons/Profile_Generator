@@ -32,8 +32,6 @@ function getQuestion(prompt) {
 
 
 
-
-
 const init = async () => {
     try {
         const answer = await inquirer.prompt(initQuestion)
@@ -55,38 +53,16 @@ const init = async () => {
             const officeNumberAnswer = await inquirer.prompt(getQuestion(employee.officeNumberPrompt))
             employee.officeNumber = officeNumberAnswer.response
         }
-        else if (employee.getRole() === "Engineer"){
+        else if (employee.getRole() === "Engineer") {
             const githubAnswer = await inquirer.prompt(getQuestion(employee.githubPrompt))
             employee.github = githubAnswer.response
         }
-        else if (employee.getRole() === "Intern"){
+        else if (employee.getRole() === "Intern") {
             const schoolAnswer = await inquirer.prompt(getQuestion(employee.schoolPrompt))
             employee.school = schoolAnswer.response
         }
 
         console.log(employee)
-
-        // if(employeeClasses[answer.employeeType] = "Manager"){
-        //     console.log('manager')
-        //     const officeNumberAnswer = await inquirer.prompt(getQuestion(employee.officeNumberPrompt))
-        //     employee.officeNumber = officeNumberAnswer.response
-        // }
-        // else if (employeeClasses[answer.employeeType] = "Intern"){
-        //     console.log('Intern')
-        // }
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
     catch (error) {
         console.log('There was an error', error)
@@ -94,10 +70,3 @@ const init = async () => {
 }
 
 init()
-
-// console.log(Employee)
-// console.log(Engineer)
-// console.log(tommy)
-// console.log(Intern)
-// console.log(Manager)
-// console.log(Questions)
