@@ -13,6 +13,12 @@ const initQuestion = [
         choices: ['Manager', 'Engineer', 'Intern']
     }
 ]
+const endQuestion = [{
+    type: "confirm",
+    name: "loop",
+    message: "Add another employee?"
+    }
+]
 const employeeClasses = {
     "Manager": Manager,
     "Engineer": Engineer,
@@ -29,6 +35,8 @@ function getQuestion(prompt) {
         }
     ]
 }
+
+const newEmployees = []
 
 const init = async () => {
     try {
@@ -59,13 +67,20 @@ const init = async () => {
             const schoolAnswer = await inquirer.prompt(getQuestion(employee.schoolPrompt))
             employee.school = schoolAnswer.response
         }
+        newEmployees.push(employee)
+        const addAnother = await inquirer.prompt(endQuestion)
+       addAnother.loop === true ? init() : false
 
-       const html = generateHTML(employee)
-
-       fs.writeFile('EmployeeProfiles.html', html, error => {
-        if (error) throw error
+       newEmployees.forEach(element => {
+        console.log(element.officeNumber)
        })
      
+        const html = generateHTML(employee)
+
+        fs.writeFile('dist/EmployeeProfiles.html', html, error => {
+            if (error) throw error
+        })
+
     }
     catch (error) {
         console.log('There was an error', error)
